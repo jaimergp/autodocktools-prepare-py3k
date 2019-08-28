@@ -9,3 +9,6 @@ for method in methods:
         """
         )
     )
+
+from string import *
+letters = ascii_letters

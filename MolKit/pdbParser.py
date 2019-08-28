@@ -46,18 +46,7 @@ Atom parsing conventions:
 """
 
 from os.path import splitext, basename
-# from string import split, strip, digits, lower, find
-def split(s, *args):
-    return s.split(*args)
-def strip(s, *args):
-    return s.strip(*args)
-def digits(s, *args):
-    return s.digits(*args)
-def lower(s, *args):
-    return s.lower(*args)
-def find(s, *args):
-    return s.find(*args)
-
+from _py2k_string import split, strip, digits, lower, find
 from MolKit.moleculeParser import MoleculeParser
 from MolKit.protein import Protein, Chain, ChainSet, Residue, ResidueSet, ProteinSet
 from MolKit.molecule import Atom, AtomSet, Bond, BondSet, HydrogenBond
@@ -583,7 +572,7 @@ You have to provide one as the second argument' % key);
         # To be DONE
         orig_element = element.strip()
         if not orig_element.isalpha() or element == '  ' or element == '':
-            element = strip(name[0:2])
+            element = name[0:2].strip()
             if not element:
                 element = name.strip()[0]
                 #warn("Chemical element type is missing for '%s', Please correct the pdb file"%name)

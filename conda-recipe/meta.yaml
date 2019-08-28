@@ -1,0 +1,30 @@
+{% set build = 0 %}
+
+package:
+    name: autodocktools-prepare
+    version: 1.5.7
+
+build:
+  number: {{ build }}
+  noarch: python
+  script: python -m pip install .
+
+source:
+  path: ../
+
+requirements:
+    build:
+      - python
+    run:
+      - python
+      - numpy
+
+test:
+    commands:
+      - prepare_ligand4.py
+      - prepare_receptor4.py
+
+about:
+    home: http://mgltools.scripps.edu/
+    license_file: LICENSE.txt
+    summary: AutoDockTools, or ADT, is the free GUI for AutoDock developed by the same laboratory that develops AutoDock.

@@ -25,4 +25,8 @@ setup(
     version="1.5.7",
     license='MPL',
     packages=find_packages(),
+    scripts=[
+        'AutoDockTools/Utilities24/prepare_receptor4.py',
+        'AutoDockTools/Utilities24/prepare_ligand4.py'
+    ]
 )
