@@ -254,9 +254,9 @@ class TableManager:
         interval split point values from the user."""
 
         self.splitDialog = Pmw.Dialog(self.master,
-	    buttons=('OK','Cancel'), defaultbutton='OK',
-	    title='Split interval dialog', command=self.execute)
-	self.splitDialog.withdraw()
+        buttons=('OK','Cancel'), defaultbutton='OK',
+        title='Split interval dialog', command=self.execute)
+        self.splitDialog.withdraw()
 
         tkinter.Label(self.splitDialog.interior(),
               text = 'Enter min and max values of new interval\n'
@@ -269,12 +269,12 @@ class TableManager:
         self.entry_maxval = int(self.xmaxval)
         self.entry_minval = int(self.xminval)
         self.min_val = Pmw.EntryField(self.splitDialog.interior(),
-		labelpos = 'w',	value = '%d'%(self.xminval),
-		label_text = 'Minval-int:',
+        labelpos = 'w',    value = '%d'%(self.xminval),
+        label_text = 'Minval-int:',
                 validate = self.validate_minval,
                 modifiedcommand = self.min_val_changed)
         self.max_val = Pmw.EntryField(self.splitDialog.interior(),
-		labelpos = 'w',	value = '%d'%(self.xmaxval),
+        labelpos = 'w',    value = '%d'%(self.xmaxval),
                 label_text = 'Maxval-int:',
                 validate = self.validate_maxval)
         self.min_val.pack(fill='x', expand=1, padx=10, pady=8)
@@ -502,7 +502,7 @@ class TableManager:
                             buttons=('OK','Cancel'), defaultbutton='OK',
                             title='New ISOval dialog',
                             command=self.addIsoVal)
-	#dialog.withdraw()
+    #dialog.withdraw()
         ew = 7
         root =dialog.interior()
         Pmw.EntryField(root, labelpos = 'w',
@@ -779,9 +779,9 @@ class TableManager:
         max_val = interval[1]
         min_val = interval[0]
 ##          print 'split_function: min_val =',min_val,'max_val =', max_val
-	#indexes of min_val and max_val in alpha and color arrays
-	min_arrind = min_val - old_lut.xminval
-	max_arrind = max_val - old_lut.xminval
+    #indexes of min_val and max_val in alpha and color arrays
+    min_arrind = min_val - old_lut.xminval
+    max_arrind = max_val - old_lut.xminval
         new_values = []
         for val in old_lut.values:
             if val >  min_val and val <  max_val:
@@ -3417,8 +3417,8 @@ class Colormap(CallbackFunctions):
         self.hsv = hsv
 
     def mouseDown(self, event):
-	x = self.canvas.canvasx(event.x)
-	y = self.canvas.canvasy(event.y)
+    x = self.canvas.canvasx(event.x)
+    y = self.canvas.canvasy(event.y)
         self.canvas.delete('oval')
         rad = 4
         self.canvas.create_oval(x-rad, y-rad, x+rad, y+rad,
@@ -3450,7 +3450,7 @@ class Colormap(CallbackFunctions):
     def mouseMove(self, event):
         c = self.canvas
         x = c.canvasx(event.x)
-	y = c.canvasy(event.y)
+    y = c.canvasy(event.y)
         if y < 0: y = 0
         elif y > self.Y0*2: y=self.Y0*2
         if x < 0: x = 0

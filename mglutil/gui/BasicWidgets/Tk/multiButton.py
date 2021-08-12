@@ -57,9 +57,9 @@ class MultiButtons:
     def __init__(self, master=None, valueList=None, callback=None,
                  sfcfg=None, immediate=1, **kw):
         
-	self.master = master = tkinter.Frame(master)
-	#Tkinter.Frame.__init__(self, master)
-	#Tkinter.Pack.config(self, fill='both', expand=1, side='left')
+    self.master = master = tkinter.Frame(master)
+    #Tkinter.Frame.__init__(self, master)
+    #Tkinter.Pack.config(self, fill='both', expand=1, side='left')
 
         #self.master = master
 
@@ -447,7 +447,7 @@ class RegexpGUI:
         self.visible = 1         # used to toggle show/hide
 
         self.frame = tkinter.Frame(self.master)
-	self.frame.pack(fill='both', expand=1)
+    self.frame.pack(fill='both', expand=1)
         self.master.protocol('WM_DELETE_WINDOW', self.hide )
 
         self.inputTk = tkinter.StringVar()
@@ -457,11 +457,11 @@ class RegexpGUI:
 
         self.radioTk = tkinter.StringVar()
         self.radioTk.set('check')
-	self.buttonCheck = tkinter.Radiobutton(self.frame, text='Check',
+    self.buttonCheck = tkinter.Radiobutton(self.frame, text='Check',
                                                variable=self.radioTk,
                                                indicatoron=1,
                                                value='check').pack(side='left')
-	self.buttonUncheck = tkinter.Radiobutton(self.frame, text='Uncheck',
+    self.buttonUncheck = tkinter.Radiobutton(self.frame, text='Uncheck',
                                              variable=self.radioTk,
                                              indicatoron=1,
                                              value='uncheck').pack(side='left')

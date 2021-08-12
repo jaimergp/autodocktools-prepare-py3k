@@ -591,7 +591,8 @@ class GridParameters(UserDict):
                 val_str = ""
         elif ((vt==int) or
               (vt==float) or
-              (vt==bytes)):
+            #   (vt == bytes)): artifact from py2to3 use str is the correct type
+              (vt==str)):
             val_str = str(p['value'])
         elif ((vt==list) or
               (vt==tuple)):
@@ -846,7 +847,8 @@ class GridParameterFileMaker:
 
 
     def set_receptor(self, receptor_filename, gpf_filename=None):
-        self.receptor_filename = os.path.basename(receptor_filename)
+        # self.receptor_filename = os.path.basename(receptor_filename)
+        self.receptor_filename = receptor_filename
         self.receptor_stem = string.split(self.receptor_filename, '.')[0]
         self.gpo.set_receptor(receptor_filename)
         #FIX THIS
@@ -1002,14 +1004,15 @@ class GridParameter4FileMaker:
             print("set_receptor:only pdbqt files valid.  ", ftype," files are not supported.")
             return "ERROR:"
         self.receptor = Read(receptor_filename)[0]
-        receptor_filename = os.path.basename(receptor_filename)
+        # receptor_filename = os.path.basename(receptor_filename) #e-mayo uncomment this cause the receptor file note found problem
         if self.receptor==None:
             print('ERROR reading: ', receptor_filename)
             return
         if self.verbose: print("set_receptor filename to ", receptor_filename)
         receptor_types = self.getTypes(self.receptor)
         self.gpo.set_receptor4(receptor_filename, types=receptor_types)
-        self.receptor_filename = os.path.basename(receptor_filename)
+        # self.receptor_filename = os.path.basename(receptor_filename) 
+        self.receptor_filename = receptor_filename
         if hasattr(self, 'receptor'):
             self.receptor_stem = self.receptor.name
         else:

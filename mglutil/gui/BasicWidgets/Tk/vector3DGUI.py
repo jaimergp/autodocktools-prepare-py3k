@@ -63,12 +63,12 @@ class vectorGUI(KeyboardModifierMonitor):
                  lockContinuous=0,  lockPrecision=0, lockMode=0,
                  callback=None, labelSide='top'):
 
-	KeyboardModifierMonitor.__init__(self)
+        KeyboardModifierMonitor.__init__(self)
 
         self.callback = callback # user specified callback
         self.name=name             # title inside canvas
         self.labelSide=labelSide   # where title gets packed
-	self.mode=mode             # axe mode: can be 'XY', 'X', 'Y' or 'Z'
+        self.mode=mode             # axe mode: can be 'XY', 'X', 'Y' or 'Z'
         self.precision=precision   # floating number digits
         self.continuous=continuous # can be 1 or 0
         self.vector=vector         # initial vector value
@@ -85,10 +85,10 @@ class vectorGUI(KeyboardModifierMonitor):
         self.drawShadowX = 0
         self.drawShadowY = 1
         self.drawShadowZ = 0
-	self.fillShadowPlanes = 1
+        self.fillShadowPlanes = 1
 
         self.master = master = tkinter.Frame(master)
-	#Tkinter.Frame.__init__(self, master)
+    #Tkinter.Frame.__init__(self, master)
         #Tkinter.Pack.config(self)
 
         self.callbacks = CallbackManager() # object to manage callback
@@ -103,9 +103,9 @@ class vectorGUI(KeyboardModifierMonitor):
         self.viewingMat = numpy.transpose(self.viewingMatInv)
         self.createCanvas(master, size)
         self.createEntries(self.frame)
-	tkinter.Widget.bind(self.canvas, "<ButtonPress-1>", self.mouseDown)
-	tkinter.Widget.bind(self.canvas, "<ButtonRelease-1>", self.mouseUp)
-	tkinter.Widget.bind(self.canvas, "<B1-Motion>", self.mouseMove)
+    tkinter.Widget.bind(self.canvas, "<ButtonPress-1>", self.mouseDown)
+    tkinter.Widget.bind(self.canvas, "<ButtonRelease-1>", self.mouseUp)
+    tkinter.Widget.bind(self.canvas, "<B1-Motion>", self.mouseMove)
 
         self.setEntries()
 
@@ -134,7 +134,7 @@ class vectorGUI(KeyboardModifierMonitor):
 
 
     def mouseDown(self, event):
-	# remember where the mouse went down
+    # remember where the mouse went down
         xc = event.x - self.xm
         yc = self.ym - event.y
         # compute the intersection point between
@@ -163,14 +163,14 @@ class vectorGUI(KeyboardModifierMonitor):
             z2 = 0
 
         # compute rotation angle
-	a = self.lastPt3D
-	b = (xc, yc, math.sqrt(z2))
+    a = self.lastPt3D
+    b = (xc, yc, math.sqrt(z2))
         ang = math.acos((a[0]*b[0]+a[1]*b[1]+a[2]*b[2])/self.r2)
         if self.mode=='XY':
-	    #compute rotation axis
+        #compute rotation axis
             rotaxis = numpy.array( (a[1]*b[2] - a[2]*b[1],
-				  a[2]*b[0] - a[0]*b[2],
-				  a[0]*b[1] - a[1]*b[0] ), 'f' )
+                  a[2]*b[0] - a[0]*b[2],
+                  a[0]*b[1] - a[1]*b[0] ), 'f' )
         elif self.mode=='X': rotaxis = numpy.array( (1.,0.,0.), 'f')
         elif self.mode=='Y': rotaxis = numpy.array( (0.,1.,0.), 'f')
         elif self.mode=='Z': rotaxis = numpy.array( (0.,0.,1.), 'f')
@@ -192,62 +192,62 @@ class vectorGUI(KeyboardModifierMonitor):
 
     def drawVector(self):
         coords3D = self.vector + [1]
-	# apply viewing transformation to vector
+    # apply viewing transformation to vector
         newPtsWithView = numpy.dot( [coords3D],
                                                  self.viewingMat)[0]
-	# compute 2D projection of vector (broken on 2 segments for
-	# depth cueing
+    # compute 2D projection of vector (broken on 2 segments for
+    # depth cueing
         x1 = self.xm+int(newPtsWithView[0]*(self.xm))
         y1 = self.ym+int(newPtsWithView[1]*(self.ym))
 
-	# change vector's segments coordinates
+    # change vector's segments coordinates
         self.canvas.coords(self.lId1, self.xm, self.ym, x1, y1)
 
-	# update vector shadows
-	# Y=0 plane
-	if self.drawShadowY:
-	    pt = [coords3D[0], 0, coords3D[2], 1.]
-	    newPtsWithView = numpy.dot( [pt], self.viewingMat)[0]
-	    xm = self.xm+int(newPtsWithView[0]*(self.xm))
-	    ym = self.ym+int(newPtsWithView[1]*(self.ym))
-	    if self.fillShadowPlanes:
-		self.canvas.coords(self.shadowPY,self.xm,self.ym,xm,ym,x1,y1)
-	    self.canvas.coords(self.shadowY,self.xm,self.ym,xm,ym,x1,y1)
+    # update vector shadows
+    # Y=0 plane
+    if self.drawShadowY:
+        pt = [coords3D[0], 0, coords3D[2], 1.]
+        newPtsWithView = numpy.dot( [pt], self.viewingMat)[0]
+        xm = self.xm+int(newPtsWithView[0]*(self.xm))
+        ym = self.ym+int(newPtsWithView[1]*(self.ym))
+        if self.fillShadowPlanes:
+        self.canvas.coords(self.shadowPY,self.xm,self.ym,xm,ym,x1,y1)
+        self.canvas.coords(self.shadowY,self.xm,self.ym,xm,ym,x1,y1)
 
-	# X=0 plane
-	if self.drawShadowX:
-	    pt = [0, coords3D[1], coords3D[2], 1.]
-	    newPtsWithView = numpy.dot( [pt], self.viewingMat)[0]
-	    xm = self.xm+int(newPtsWithView[0]*(self.xm))
-	    ym = self.ym+int(newPtsWithView[1]*(self.ym))
-	    if self.fillShadowPlanes:
-		self.canvas.coords(self.shadowPX,self.xm,self.ym,xm,ym,x1,y1)
-	    self.canvas.coords(self.shadowX, self.xm, self.ym, xm, ym, x1,y1)
+    # X=0 plane
+    if self.drawShadowX:
+        pt = [0, coords3D[1], coords3D[2], 1.]
+        newPtsWithView = numpy.dot( [pt], self.viewingMat)[0]
+        xm = self.xm+int(newPtsWithView[0]*(self.xm))
+        ym = self.ym+int(newPtsWithView[1]*(self.ym))
+        if self.fillShadowPlanes:
+        self.canvas.coords(self.shadowPX,self.xm,self.ym,xm,ym,x1,y1)
+        self.canvas.coords(self.shadowX, self.xm, self.ym, xm, ym, x1,y1)
 
-	# Z=0 plane
-	if self.drawShadowZ:
-	    pt = [coords3D[0], coords3D[1], 0, 1.]
-	    newPtsWithView = numpy.dot( [pt], self.viewingMat)[0]
-	    xm = self.xm+int(newPtsWithView[0]*(self.xm))
-	    ym = self.ym+int(newPtsWithView[1]*(self.ym))
-	    if self.fillShadowPlanes:
-		self.canvas.coords(self.shadowPZ,self.xm,self.ym,xm,ym,x1,y1)
-	    self.canvas.coords(self.shadowZ, self.xm, self.ym, xm, ym, x1,y1)
+    # Z=0 plane
+    if self.drawShadowZ:
+        pt = [coords3D[0], coords3D[1], 0, 1.]
+        newPtsWithView = numpy.dot( [pt], self.viewingMat)[0]
+        xm = self.xm+int(newPtsWithView[0]*(self.xm))
+        ym = self.ym+int(newPtsWithView[1]*(self.ym))
+        if self.fillShadowPlanes:
+        self.canvas.coords(self.shadowPZ,self.xm,self.ym,xm,ym,x1,y1)
+        self.canvas.coords(self.shadowZ, self.xm, self.ym, xm, ym, x1,y1)
 
-	if self.vector[0]<0.0:
-	    self.canvas.tag_raise('verticalCircle', 'moving')
-	else:
-	    self.canvas.tag_lower('verticalCircle', 'moving')
+    if self.vector[0]<0.0:
+        self.canvas.tag_raise('verticalCircle', 'moving')
+    else:
+        self.canvas.tag_lower('verticalCircle', 'moving')
 
-	if self.vector[1]<0.0:
-	    self.canvas.tag_raise('horizontalCircle', 'moving')
-	else:
-	    self.canvas.tag_lower('horizontalCircle', 'moving')
+    if self.vector[1]<0.0:
+        self.canvas.tag_raise('horizontalCircle', 'moving')
+    else:
+        self.canvas.tag_lower('horizontalCircle', 'moving')
 
-	if self.vector[2]<0.0 or self.vector[1]<0.0:
-	    self.canvas.tag_raise('axis', 'moving')
-	else:
-	    self.canvas.tag_lower('axis', 'moving')
+    if self.vector[2]<0.0 or self.vector[1]<0.0:
+        self.canvas.tag_raise('axis', 'moving')
+    else:
+        self.canvas.tag_lower('axis', 'moving')
 
 
     def thumbx_cb(self, events=None):
@@ -262,7 +262,7 @@ class vectorGUI(KeyboardModifierMonitor):
 ##          else: v = [valX/n, valY/n, valZ/n]
 ##          val = v[0]
 
-	rot = numpy.zeros( (4,4), 'f' )
+    rot = numpy.zeros( (4,4), 'f' )
         rot[0][0] = 1.0
         rot[1][1] = math.cos(val)
         rot[1][2] = -math.sin(val)
@@ -272,7 +272,7 @@ class vectorGUI(KeyboardModifierMonitor):
 
     def thumby_cb(self, events=None):
         val=self.thumby.value
-	rot = numpy.zeros( (4,4), 'f' )
+    rot = numpy.zeros( (4,4), 'f' )
         rot[0][0] = math.cos(val)
         rot[0][2] = -math.sin(val)
         rot[1][1] = 1.0
@@ -283,7 +283,7 @@ class vectorGUI(KeyboardModifierMonitor):
 
     def thumbz_cb(self, events=None):
         val=self.thumbz.value
-	rot = numpy.zeros( (4,4), 'f' )
+    rot = numpy.zeros( (4,4), 'f' )
         rot[0][0] = math.cos(val)
         rot[0][1] = -math.sin(val)
         rot[1][0] = math.sin(val)
@@ -372,7 +372,7 @@ class vectorGUI(KeyboardModifierMonitor):
 
     def createEntries(self, master):
         self.f = tkinter.Frame(master)
-	#self.f.grid(column=3, rowspan=3)
+    #self.f.grid(column=3, rowspan=3)
 
         def fX(): self.vector = [1.,0.,0.]; self.setEntries(); self.callbacks.CallCallbacks(self.vector)
         def fY(): self.vector = [0.,1.,0.]; self.setEntries(); self.callbacks.CallCallbacks(self.vector)
@@ -464,9 +464,9 @@ class vectorGUI(KeyboardModifierMonitor):
 
         self.entryV.pack()
 
-	self.setButton=tkinter.Button(master, text='normalize and set',
+    self.setButton=tkinter.Button(master, text='normalize and set',
                                       command = self.setButton_cb)
-	self.setButton.pack(side='bottom')
+    self.setButton.pack(side='bottom')
 
 
     def setEntries(self):
@@ -488,18 +488,18 @@ class vectorGUI(KeyboardModifierMonitor):
             self.title = tkinter.Label(self.frame, text=self.name)
             self.title.pack(side=self.labelSide)
 
-	self.canvas = tkinter.Canvas(self.frame, width=size, height=size)
+    self.canvas = tkinter.Canvas(self.frame, width=size, height=size)
 
         # set the focus so that we get keyboard events, and add callbacks
         self.canvas.bind('<KeyPress>', self.modifierDown)
         self.canvas.bind("<KeyRelease>", self.modifierUp)
 
         xm = self.xm = ym = self.ym = self.r
-	self.canvas.create_oval(0, 0, size, size)
-	self.canvas.create_oval(xm-(xm/4), 0, xm+(xm/4), size,
-				tags='verticalCircle')
-	self.canvas.create_oval(0, ym-(ym/4), size, ym+(ym/4),
-				tags='horizontalCircle')
+    self.canvas.create_oval(0, 0, size, size)
+    self.canvas.create_oval(xm-(xm/4), 0, xm+(xm/4), size,
+                tags='verticalCircle')
+    self.canvas.create_oval(0, ym-(ym/4), size, ym+(ym/4),
+                tags='horizontalCircle')
 
         # apply viewing transformation to vector
         XaxisWithView = numpy.dot([(1.,0.,0.,1.)],self.viewingMat)[0]
@@ -517,26 +517,26 @@ class vectorGUI(KeyboardModifierMonitor):
         y3 = self.ym+int(XaxisWithView[1]*(self.ym))
         self.canvas.create_line(xm, ym, x3, y3, fill='blue', tags='axis')
 
-	self.textId = self.canvas.create_text(0, size, anchor='sw', text="XY")
+    self.textId = self.canvas.create_text(0, size, anchor='sw', text="XY")
 
-	# shadow line in X=0 plane
-	self.shadowPX = self.canvas.create_polygon(0,0,0,0,0,0, fill='red',
-					       tag='moving')
-	self.shadowPY = self.canvas.create_polygon(0,0,0,0,0,0, fill='green',
-					       tag='moving')
-	self.shadowPZ = self.canvas.create_polygon(0,0,0,0,0,0, fill='blue',
-					       tag='moving')
+    # shadow line in X=0 plane
+    self.shadowPX = self.canvas.create_polygon(0,0,0,0,0,0, fill='red',
+                           tag='moving')
+    self.shadowPY = self.canvas.create_polygon(0,0,0,0,0,0, fill='green',
+                           tag='moving')
+    self.shadowPZ = self.canvas.create_polygon(0,0,0,0,0,0, fill='blue',
+                           tag='moving')
 
-	self.shadowX = self.canvas.create_line(0, 0, 0, 0, fill='black',
-					       tag='moving')
-	self.shadowY = self.canvas.create_line(0, 0, 0, 0, fill='black',
-					       tag='moving')
-	self.shadowZ = self.canvas.create_line(0, 0, 0, 0, fill='black',
-					       tag='moving')
+    self.shadowX = self.canvas.create_line(0, 0, 0, 0, fill='black',
+                           tag='moving')
+    self.shadowY = self.canvas.create_line(0, 0, 0, 0, fill='black',
+                           tag='moving')
+    self.shadowZ = self.canvas.create_line(0, 0, 0, 0, fill='black',
+                           tag='moving')
 
-	self.lId1 = self.canvas.create_line(0, 0, 0, 0, fill='black', width=3,
-					    arrow='last')
-	self.canvas.pack(side='top')
+    self.lId1 = self.canvas.create_line(0, 0, 0, 0, fill='black', width=3,
+                        arrow='last')
+    self.canvas.pack(side='top')
         self.frame.pack(expand=1, fill='x')
         self.xm = self.ym = self.r
         self.drawVector()
@@ -586,8 +586,8 @@ class vectorGUI(KeyboardModifierMonitor):
 
     def setMode(self, mode):
         if mode!='XY' and mode!='X' and mode!='Y' and mode!='Z': mode = 'XY'
-	self.canvas.itemconfigure( self.textId, text=mode)
-	self.mode = mode
+    self.canvas.itemconfigure( self.textId, text=mode)
+    self.mode = mode
 
         if hasattr(self.opPanel, 'optionsForm'):
             w=self.opPanel.idf.entryByName['togAxes']['widget']

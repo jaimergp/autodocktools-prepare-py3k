@@ -230,7 +230,7 @@ class Player:
         """ function to display the player gui."""
 
         if hasattr(self, 'form'):
-	    if hasattr(self.form, "deiconify"):
+        if hasattr(self.form, "deiconify"):
                 self.form.deiconify()
                 return   
         self.master=master

@@ -10,11 +10,11 @@
 
 
 import tkinter, Pmw
-from mglutil.gui.InputForm.Tk.gui import InputFormDescr, InputForm
+from mglutil.gui.InputForm.Tk.gui import InputFormDescr,   InputForm
 from mglutil.util.misc import ensureFontCase
 
 class OptionsPanel:
-
+ 
     """ This class builds the options panel used in various GUIs.
 master is the widget for which the panel is created.
 title is the title of the 
@@ -257,14 +257,14 @@ title is the title of the
                          'gridcfg':{'sticky':'we', 'row':10,'column':0},
                          'command': self.OK_cb})
         
-	self.idf.append({'name':'ApplyButton',
+    self.idf.append({'name':'ApplyButton',
                          'widgetType':tkinter.Button,
                          'text':'Apply',
                          'wcfg':{'bd':3},
                          'gridcfg':{'sticky':'we', 'row':10,'column':1},
                          'command': self.Apply_cb})
 
-	self.idf.append({'name':'CancelButton',
+    self.idf.append({'name':'CancelButton',
                          'widgetType':tkinter.Button,
                          'text':'Dismiss',
                          'wcfg':{'bd':3},
@@ -425,7 +425,7 @@ title is the title of the
 
     def Dismiss_cb(self, event=None):
         self.flag = 0
-	self.optionsForm.withdraw()
+    self.optionsForm.withdraw()
 
 
     def displayPanel(self, create):
@@ -690,7 +690,7 @@ class VectorOptionsPanel:
 
     def Dismiss_cb(self):
         self.flag = 0
-	self.optionsForm.withdraw()
+    self.optionsForm.withdraw()
 
 
     def displayPanel(self, create):

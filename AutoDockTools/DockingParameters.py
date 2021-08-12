@@ -1126,7 +1126,7 @@ class DockingParameters(UserDict):
             return float(val_str)
         except ValueError:
             pass
-        if type(val_str)==bytes:
+        if type(val_str)==str:
             return val_str
         else:
             raise NotImplementedError("value: %s of unsupport type %s" % (val_str, type(val_str).__name__))
@@ -1225,7 +1225,7 @@ class DockingParameters(UserDict):
         elif ((vt==int) or
               (vt==int) or
               (vt==float) or
-              (vt==bytes)):
+              (vt==str)):
             val_str = str(p['value'])
         elif ((vt==list) or
               (vt==tuple)):

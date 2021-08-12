@@ -102,8 +102,8 @@ components see configure(). value is 0 or 1. 1 disables,0 enables.
 #            checkkeywords(kw)
             
         self.master = master = tkinter.Frame(master)
-	#Tkinter.Frame.__init__(self, master)
-	#Tkinter.Pack.config(self, side='left', anchor='w')
+    #Tkinter.Frame.__init__(self, master)
+    #Tkinter.Pack.config(self, side='left', anchor='w')
 
         #FIXME: nblines are not dynamically computed
         self.nblines = 30
@@ -184,14 +184,14 @@ components see configure(). value is 0 or 1. 1 disables,0 enables.
         self.setLabel(self.labCfg)
 
         self.createCanvas(master, wheelPad=wheelPad)        
-	self.canvas.bind("<ButtonPress-1>", self.mouseDown)
-	self.canvas.bind("<ButtonRelease-1>", self.mouseUp)
-	self.canvas.bind("<B1-Motion>", self.mouseMove)
+    self.canvas.bind("<ButtonPress-1>", self.mouseDown)
+    self.canvas.bind("<ButtonRelease-1>", self.mouseUp)
+    self.canvas.bind("<B1-Motion>", self.mouseMove)
         self.canvas.bind("<Button-3>", self.toggleOptPanel)
 
- 	self.valueLabel.bind("<ButtonPress-1>", self.mouseDown)
-	self.valueLabel.bind("<ButtonRelease-1>", self.mouseUp)
-	self.valueLabel.bind("<B1-Motion>", self.mouseMove)
+     self.valueLabel.bind("<ButtonPress-1>", self.mouseDown)
+    self.valueLabel.bind("<ButtonRelease-1>", self.mouseUp)
+    self.valueLabel.bind("<B1-Motion>", self.mouseMove)
         self.valueLabel.bind("<Button-3>", self.toggleOptPanel)
 
         if os.name == 'nt': #sys.platform == 'win32':
@@ -296,7 +296,7 @@ every time the widget value is set/modified"""
 
  
     def mouseDown(self, event):
-	# remember where the mouse went down
+    # remember where the mouse went down
         if self.orient=='horizontal':
             self.lastx = event.x
         else:
@@ -304,7 +304,7 @@ every time the widget value is set/modified"""
 
 
     def mouseUp(self, event):
-	# call callbacks if not in continuous mode
+    # call callbacks if not in continuous mode
         newVal = self.get()
         if self.oldValue != newVal:
             if not self.continuous:
@@ -460,7 +460,7 @@ every time the widget value is set/modified"""
         height = self.height-bw
         width = self.width-bw
         cp = self.canvas.create_polygon
-	self.outline1 = cp( bd, bd, bd, height+cbdw, width+cbdw, height+cbdw,
+    self.outline1 = cp( bd, bd, bd, height+cbdw, width+cbdw, height+cbdw,
                             width+cbdw, bd, bd, bd,
                             width=1, outline='gray60', fill='gray85')
 
@@ -468,28 +468,28 @@ every time the widget value is set/modified"""
         l = (width+cbdw-1) - (bd+1) # length of the inner box
         cl25 = 2.*l/25.
         cl = self.canvas.create_line
-	self.outline2 = cl( ul+int(cl25), ul, ul, ul, ul,
+    self.outline2 = cl( ul+int(cl25), ul, ul, ul, ul,
                             height+cbdw-1, ul+int(cl25),
                             height+cbdw-1,
                             width=1, fill='gray20')
- 	self.outline3 = cl( ul+int(cl25), ul, ul+int(3*cl25), ul,
+     self.outline3 = cl( ul+int(cl25), ul, ul+int(3*cl25), ul,
                             width=1, fill='gray60')
- 	self.outline4 = cl( ul+int(cl25), height+cbdw-1,
+     self.outline4 = cl( ul+int(cl25), height+cbdw-1,
                             ul+int(3*cl25), height+cbdw-1,
                             width=1, fill='gray60')
- 	self.outline5 = cl( ul+int(5*cl25), ul, ul+int(7.5*cl25), ul,
+     self.outline5 = cl( ul+int(5*cl25), ul, ul+int(7.5*cl25), ul,
                             width=1, fill='white')
- 	self.outline4 = cl(  ul+int(5*cl25), height+cbdw-1, ul+int(7.5*cl25),
+     self.outline4 = cl(  ul+int(5*cl25), height+cbdw-1, ul+int(7.5*cl25),
                             height+cbdw-1,
                             width=1, fill='white')
- 	self.outline6 = cl( ul+int(9.5*cl25), ul, ul+int(11.5*cl25), ul,
+     self.outline6 = cl( ul+int(9.5*cl25), ul, ul+int(11.5*cl25), ul,
                             width=1, fill='gray60')
- 	self.outline7 = cl( ul+int(9.5*cl25), height+cbdw-1,
+     self.outline7 = cl( ul+int(9.5*cl25), height+cbdw-1,
                             ul+int(11.5*cl25), height+cbdw-1,
                             width=1, fill='gray60')
 
         re = ul+l
-	self.outline8 = cl( ul+int(11.5*cl25), ul, re, ul, re,
+    self.outline8 = cl( ul+int(11.5*cl25), ul, re, ul, re,
                             height+cbdw-1, ul+int(11.5*cl25),
                             height+cbdw-1,
                             width=1, fill='gray20')
@@ -536,7 +536,7 @@ every time the widget value is set/modified"""
         self.valueLabel = tkinter.Label(*(self.master,), **wlabCfg)
 
         self.drawLines()
-	self.canvas.pack(side=tkinter.LEFT)
+    self.canvas.pack(side=tkinter.LEFT)
         self.toggleWidgetLabel(self.showLabel)
 
         
