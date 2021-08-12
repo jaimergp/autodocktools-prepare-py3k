@@ -151,7 +151,28 @@ class TorTree:
                 # now there's a problem
                 raise RuntimeError("indistinguishable torsion TreeNodes")
                 return 0
-        allNodes.sort(__sortTorsionMap)
+        try:
+            allNodes.sort(__sortTorsionMap)
+        except:
+            def cmp_to_key(mycmp):
+                'Convert a cmp= function into a key= function'
+                class K(object):
+                    def __init__(self, obj, *args):
+                        self.obj = obj
+                    def __lt__(self, other):
+                        return mycmp(self.obj, other.obj) < 0
+                    def __gt__(self, other):
+                        return mycmp(self.obj, other.obj) > 0
+                    def __eq__(self, other):
+                        return mycmp(self.obj, other.obj) == 0
+                    def __le__(self, other):
+                        return mycmp(self.obj, other.obj) <= 0
+                    def __ge__(self, other):
+                        return mycmp(self.obj, other.obj) >= 0
+                    def __ne__(self, other):
+                        return mycmp(self.obj, other.obj) != 0
+                return K
+            allNodes.sort(key=cmp_to_key(__sortTorsionMap))
         #don't put rootNode into TorsionMap!!!
         return allNodes[:-1]
 
@@ -257,7 +278,30 @@ class TorTree:
                 # now there's a problem
                 raise RuntimeError("indistinguishable torsion TreeNodes")
                 return 0
-        torsionMap.sort(__sortTorsionMap)
+        try:
+            # python 2 implementation original
+            torsionMap.sort(__sortTorsionMap)
+        except:
+            # python 3 re-implementation e-mayo
+            def cmp_to_key(mycmp):
+                'Convert a cmp= function into a key= function'
+                class K(object):
+                    def __init__(self, obj, *args):
+                        self.obj = obj
+                    def __lt__(self, other):
+                        return mycmp(self.obj, other.obj) < 0
+                    def __gt__(self, other):
+                        return mycmp(self.obj, other.obj) > 0
+                    def __eq__(self, other):
+                        return mycmp(self.obj, other.obj) == 0
+                    def __le__(self, other):
+                        return mycmp(self.obj, other.obj) <= 0
+                    def __ge__(self, other):
+                        return mycmp(self.obj, other.obj) >= 0
+                    def __ne__(self, other):
+                        return mycmp(self.obj, other.obj) != 0
+                return K
+            torsionMap.sort(key=cmp_to_key(__sortTorsionMap))
         return torsionMap
 
 

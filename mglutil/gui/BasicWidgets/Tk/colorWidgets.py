@@ -72,22 +72,22 @@ class ColorWheel:
 
 
     def _MoveCursor(self, x, y, trigger=1):
-	# find the saturation based on distance
-	s = math.sqrt(x*x + y*y) / self.radius
-	if s > 1.0:
-	    x = x / s
-	    y = y / s
-	    s = 1.0
+    # find the saturation based on distance
+    s = math.sqrt(x*x + y*y) / self.radius
+    if s > 1.0:
+        x = x / s
+        y = y / s
+        s = 1.0
 
-	# now find the hue based on the angle 
-	if x or y:
-	    angle = math.atan2(y, x)
-	    if angle < 0.0:
+    # now find the hue based on the angle 
+    if x or y:
+        angle = math.atan2(y, x)
+        if angle < 0.0:
                 angle = angle + (2.*math.pi)
-	    h = 1. - angle / (2.0 * math.pi)
-	else:
-	    h = 0
-	# check if redraw and callback are needed
+        h = 1. - angle / (2.0 * math.pi)
+    else:
+        h = 0
+    # check if redraw and callback are needed
         if self.hsvColor[0] != h or self.hsvColor[1] != s:
             if trigger==1:
                 self.hsvColor[0] = h
@@ -97,7 +97,7 @@ class ColorWheel:
             self.cwcanvas.coords( self.cursor, cx-3, cy-3, cx-3, cy+3,
                                   cx+3,cy+3, cx+3, cy-3, cx-3, cy-3 )
 
-	    if self.cbManager.callbacks:
+        if self.cbManager.callbacks:
                 self.cbManager.CallCallbacks(self.get('RGB'))
 
     def mouse1Down(self, event=None):
@@ -128,33 +128,33 @@ class ColorWheel:
 
 
     def get(self, mode='HSV'):
-	"""Get the current color"""
-	if mode == 'RGB':
-	    rgb = ToRGB(self.hsvColor)
-	    #return OneColor(rgb)
+    """Get the current color"""
+    if mode == 'RGB':
+        rgb = ToRGB(self.hsvColor)
+        #return OneColor(rgb)
             return rgb
 
-	elif mode == 'HSV':
-	    #return OneColor(self.hsvColor)
+    elif mode == 'HSV':
+        #return OneColor(self.hsvColor)
             return self.hsvColor
 
-	elif mode == 'HEX':
-	    col = numpy.array(ToRGB(self.hsvColor[:]), 'f') * 255
-	    return ToHEX(col)
+    elif mode == 'HEX':
+        col = numpy.array(ToRGB(self.hsvColor[:]), 'f') * 255
+        return ToHEX(col)
 
 
     def set(self, color, mode='HSV', trigger=1):
-	"""Set the current color"""
-	assert len(color)==3
-	#color = OneColor(color)
-	if mode=='RGB': color = ToHSV(color[:])
-	self.hsvColor = list(color[:])
+    """Set the current color"""
+    assert len(color)==3
+    #color = OneColor(color)
+    if mode=='RGB': color = ToHSV(color[:])
+    self.hsvColor = list(color[:])
 
         # update cursor
-	rad = self.hsvColor[1] * self.radius
-	angle = 2.0 * math.pi * (1. - self.hsvColor[0])
-	cx = self.cx + int(rad * math.cos(angle))
-	cy = self.cy + int(rad * math.sin(angle))
+    rad = self.hsvColor[1] * self.radius
+    angle = 2.0 * math.pi * (1. - self.hsvColor[0])
+    cx = self.cx + int(rad * math.cos(angle))
+    cy = self.cy + int(rad * math.sin(angle))
         self.cwcanvas.coords( self.cursor, cx-3, cy-3, cx-3, cy+3,
                               cx+3,cy+3, cx+3, cy-3, cx-3, cy-3 )
 
@@ -332,8 +332,8 @@ class ColorEditor:
     #def caluculate(self):
         
     def set(self, color, mode='RGB', trigger=1):
-	"""Set the current color"""
-	#assert len(color)==3
+    """Set the current color"""
+    #assert len(color)==3
         assert mode in ['HSV', 'RGB', 'HEX']
         self.mode = mode
         if mode == 'HSV':

@@ -84,7 +84,7 @@ increment will now be added to this new <value>
                  lockPrecision=0, lockShowLabel=0, lockValue=0,
                  lockType=0, lockContinuous=0, lockOneTurn=0, **kw):
 
-	self.master = master = tkinter.Frame(master)
+    self.master = master = tkinter.Frame(master)
         #Tkinter.Frame.__init__(self, master)
         #Tkinter.Pack.config(self)
 
@@ -161,9 +161,9 @@ increment will now be added to this new <value>
         self.createCanvas(master)
 
         canvas = self.canvas
-	canvas.bind("<ButtonPress-1>", self.mouseDown)
-	canvas.bind("<ButtonRelease-1>", self.mouseUp)
-	canvas.bind("<B1-Motion>", self.mouseMove)
+    canvas.bind("<ButtonPress-1>", self.mouseDown)
+    canvas.bind("<ButtonRelease-1>", self.mouseUp)
+    canvas.bind("<B1-Motion>", self.mouseMove)
         canvas.bind("<Button-3>", self.toggleOptPanel)
 
         if os.name == 'nt': #sys.platform == 'win32':
@@ -254,13 +254,13 @@ every time the widget value is set/modified"""
 
 
     def mouseDown(self, event):
-	# remember where the mouse went down
-	self.lastx = event.x
-	self.lasty = event.y
+    # remember where the mouse went down
+    self.lastx = event.x
+    self.lasty = event.y
 
 
     def mouseUp(self, event):
-	# call callbacks if not in continuous mode
+    # call callbacks if not in continuous mode
         if not self.continuous:
             self.callbacks.CallCallbacks(self.opPanel.valInput.get())
         if self.showLabel == 2:
@@ -430,7 +430,7 @@ every time the widget value is set/modified"""
         size = self.size
         self.frame = tkinter.Frame(self.master, borderwidth=3, relief='sunken')
 
-	self.canvas = tkinter.Canvas(self.frame, width=size+2, height=size+2)
+    self.canvas = tkinter.Canvas(self.frame, width=size+2, height=size+2)
 
         self.xm = self.ym = size/2+2
         self.rad = size/2
